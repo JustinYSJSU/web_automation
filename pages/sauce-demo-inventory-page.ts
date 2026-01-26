@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page} from '@playwright/test';
+import { type Locator, type Page} from '@playwright/test';
 
 export class SauceDemoInventoryPage{
     readonly page: Page;
@@ -11,5 +11,10 @@ export class SauceDemoInventoryPage{
         this.logoutLink = page.getByTestId("logout-sidebar-link");
         this.inventoryContainer = page.getByTestId("inventory-container");
         this.cartLink = page.getByTestId("shopping-cart-link");
+    }
+
+    async addItemToCart(productTestID: string){
+        const itemAddToCartButton = this.inventoryContainer.getByTestId(productTestID);
+        await itemAddToCartButton.click();
     }
 }
