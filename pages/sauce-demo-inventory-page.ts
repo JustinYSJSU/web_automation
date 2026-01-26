@@ -13,6 +13,10 @@ export class SauceDemoInventoryPage{
         this.cartLink = page.getByTestId("shopping-cart-link");
     }
 
+    async logout(){
+        await this.logoutLink.click()
+    }
+    
     async addItemToCart(productTestID: string){
         const itemAddToCartButton = this.inventoryContainer.getByTestId(productTestID);
         await itemAddToCartButton.click();
