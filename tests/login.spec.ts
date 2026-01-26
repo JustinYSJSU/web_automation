@@ -1,10 +1,15 @@
-import { test, expect } from '@playwright/test';
-import { SauceDemoLoginPage } from '../pages/sauce-demo-login-page';
+import testData from "../data/login_data.json";
+import { test, expect } from '../fixtures/fixtures';
 
-test('navigate', async({page}) =>{
-    const loginPage = new SauceDemoLoginPage(page);
+for(const data of testData) {
+    test(`Login test for ${data.test_case_id}: ${data.name}`, async ({loginPage, page}) =>{
+        await loginPage.login(data.username, data.password);
 
-    await page.goto("https://www.saucedemo.com/");
-    await expect(page).toHaveTitle(/Swag Labs/);
-    await loginPage.login("standard_user", "secret_sauce");
-})
+        if(data.shouldFail){
+            await expect(page.getByText(`${data.expectedError}`)).toBeVisible()
+        }
+        else{
+            await expect(page).toHaveURL(/.*inventory.html/);
+        }
+    });
+}

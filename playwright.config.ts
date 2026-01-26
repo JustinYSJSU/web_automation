@@ -30,7 +30,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    testIdAttribute: 'data-test' // override "testIdAttribute to 'data-test', which is used in the Sauce demo site"
+    testIdAttribute: 'data-test' // override "testIdAttribute to 'data-test', which is used in the Sauce demo site",
   },
   /* Configure projects for major browsers */
   projects: [
