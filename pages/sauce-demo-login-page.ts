@@ -19,8 +19,8 @@ export class SauceDemoLoginPage{
     }
 
     async login(username: string, password: string){
-        this.usernameEntry.fill(username);
-        this.passwordEntry.fill(password);
-        this.loginButton.click();
+        await this.usernameEntry.fill(username);
+        await this.passwordEntry.fill(password);
+        await this.loginButton.click();
     }
 }
