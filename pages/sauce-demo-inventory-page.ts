@@ -22,7 +22,13 @@ export class SauceDemoInventoryPage{
     }
 
     async addItemToCart(productTestID: string){
-        const itemAddToCartButton = this.inventoryContainer.getByTestId(productTestID);
+        let itemAddToCartButton = null;
+        if(productTestID === "add-to-cart-test.allthethings()-t-shirt-(red)"){
+           itemAddToCartButton = this.page.locator('[data-test="add-to-cart-test.allthethings()-t-shirt-(red)"]');
+        }
+        else{
+            itemAddToCartButton = this.page.getByTestId(productTestID);
+        }
         await itemAddToCartButton.click();
     }
 }

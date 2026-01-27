@@ -1,26 +1,10 @@
-[
-    {
-        "test_case_id": "SHOP-001", 
-        "name": "Add to cart",
-        "item_button_ids": [
-            "add-to-cart-sauce-labs-backpack", 
-            "add-to-cart-sauce-labs-bike-light", 
-            "add-to-cart-sauce-labs-bolt-t-shirt",
-            "add-to-cart-sauce-labs-fleece-jacket",
-            "add-to-cart-sauce-labs-onesie",
-            "add-to-cart-sauce-labs-test.allthethings()-t-shirt-(red)"
-        ]
-    }, 
-    {
-        "test_case_id": "SHOP-002", 
-        "name": "Add multiple items to cart",
-        "item_button_ids": [
-            "add-to-cart-sauce-labs-backpack", 
-            "add-to-cart-sauce-labs-bike-light", 
-            "add-to-cart-sauce-labs-bolt-t-shirt",
-            "add-to-cart-sauce-labs-fleece-jacket",
-            "add-to-cart-sauce-labs-onesie",
-            "add-to-cart-sauce-labs-test.allthethings()-t-shirt-(red)"
-        ]
-    }
-]
+{
+    "item_button_ids": [
+        "add-to-cart-sauce-labs-backpack", 
+        "add-to-cart-sauce-labs-bike-light", 
+        "add-to-cart-sauce-labs-bolt-t-shirt",
+        "add-to-cart-sauce-labs-fleece-jacket",
+        "add-to-cart-sauce-labs-onesie",
+        "add-to-cart-test.allthethings()-t-shirt-(red)"
+    ]
+}
