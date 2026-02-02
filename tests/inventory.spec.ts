@@ -23,3 +23,25 @@ test('test add item to cart', async ({inventoryPage, page}) => {
 
     await expect(inventoryItemDesc).toContainText(firstItemDesc);
 })
+
+test('test remove item from cart', async ({inventoryPage, page}) => {
+    await inventoryPage.addFirstItemToCart();
+
+    const firstButton = inventoryPage.page.locator('.btn_inventory').first();
+    const shoppingCartText = inventoryPage.page.getByTestId("shopping-cart-badge");
+
+    await expect(firstButton).toHaveText('Remove');
+    await expect(shoppingCartText).toHaveText('1');
+
+    const shoppingCartLink = inventoryPage.page.getByTestId("shopping-cart-link");
+    await shoppingCartLink.click();
+
+    await expect(page).toHaveURL(/.*cart.html/);
+
+    const removeButton = page.locator('.btn_small');
+    const cartPageShoppingCartText = page.getByTestId("shopping-cart-badge");
+    removeButton.click();
+
+    await expect(cartPageShoppingCartText).not.toBeVisible();
+    await expect(removeButton).not.toBeVisible();
+})
