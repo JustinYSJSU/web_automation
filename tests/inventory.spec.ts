@@ -1,13 +1,25 @@
 import { test, expect } from '../fixtures/fixtures';
-import testData from "../data/inventory_data.json";
 
 test('Logout test', async ({inventoryPage, page}) => {
     await inventoryPage.logout();
     await expect(page).toHaveURL(/saucedemo.com\/$/);
 })
 
-test('test add single item to cart', async ({inventoryPage, page}) => {
-    const itemButtonIDList = testData.item_button_ids;
-    const randomItemButtonID = itemButtonIDList[Math.floor(Math.random() * itemButtonIDList.length)];
-    await inventoryPage.addItemToCart(randomItemButtonID);
+test('test add item to cart', async ({inventoryPage, page}) => {
+    const firstItemDesc = await inventoryPage.addFirstItemToCart() || "";
+
+    const firstButton = inventoryPage.page.locator('.btn_inventory').first();
+    await expect(firstButton).toHaveText('Remove');
+
+    const shoppingCartText = inventoryPage.page.getByTestId("shopping-cart-badge");
+    await expect(shoppingCartText).toHaveText('1');
+
+    const shoppingCartLink = inventoryPage.page.getByTestId("shopping-cart-link");
+    await shoppingCartLink.click();
+
+    await expect(page).toHaveURL(/.*cart.html/);
+
+    const inventoryItemDesc = page.getByTestId("inventory-item-desc");
+
+    await expect(inventoryItemDesc).toContainText(firstItemDesc);
 })
