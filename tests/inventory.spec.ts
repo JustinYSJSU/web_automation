@@ -45,3 +45,28 @@ test('test remove item from cart', async ({inventoryPage, page}) => {
     await expect(cartPageShoppingCartText).not.toBeVisible();
     await expect(removeButton).not.toBeVisible();
 })
+
+test('sort items by name (z-a)', async ({inventoryPage, page}) => {
+    const itemNames: string[] = []
+    let isSorted = true;
+    const sortButton = page.getByTestId("product-sort-container");
+
+    await sortButton.selectOption("Name (Z to A)");
+
+    const listItems = page.locator('.inventory_item');
+
+    const allItems = await listItems.all();
+    
+    for (const item of allItems) {
+        const itemName = await item.locator('.inventory_item_name').textContent();
+        itemNames.push(itemName || "");
+        
+    }
+
+    for(let i = 0; i < itemNames.length - 1; i++){
+        if(itemNames[i] < itemNames[i + 1]){
+            isSorted = false;
+        }
+    }
+    expect(isSorted);
+})
