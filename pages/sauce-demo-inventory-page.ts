@@ -7,12 +7,15 @@ export class SauceDemoInventoryPage{
     readonly inventoryContainer: Locator;
     readonly cartLink: Locator;
 
+    readonly items: string[];
+
     constructor(page: Page){
         this.page = page;
         this.menuButton = page.locator("#react-burger-menu-btn");
         this.logoutLink = page.getByTestId('logout-sidebar-link');
         this.inventoryContainer = page.getByTestId("inventory-container");
         this.cartLink = page.getByTestId("shopping-cart-link");
+        this.items = [];
     }
 
     async logout(){
@@ -30,5 +33,10 @@ export class SauceDemoInventoryPage{
             itemAddToCartButton = this.page.getByTestId(productTestID);
         }
         await itemAddToCartButton.click();
+        this.items.push(productTestID);
+    }
+
+    async removeItemFromCart(productTestID: string){
+
     }
 }
