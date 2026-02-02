@@ -68,5 +68,5 @@ test('sort items by name (z-a)', async ({inventoryPage, page}) => {
             isSorted = false;
         }
     }
-    expect(isSorted);
+    expect(isSorted).toBe(true);
 })
