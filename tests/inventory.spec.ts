@@ -47,7 +47,7 @@ test('test remove item from cart', async ({inventoryPage, page}) => {
 })
 
 test('sort items by name (z-a)', async ({inventoryPage, page}) => {
-    const itemNames: string[] = []
+    const itemNames: string[] = [];
     let isSorted = true;
     const sortButton = page.getByTestId("product-sort-container");
 
@@ -65,6 +65,31 @@ test('sort items by name (z-a)', async ({inventoryPage, page}) => {
 
     for(let i = 0; i < itemNames.length - 1; i++){
         if(itemNames[i] < itemNames[i + 1]){
+            isSorted = false;
+        }
+    }
+    expect(isSorted).toBe(true);
+})
+
+test('sort items by price (low to high)', async ({inventoryPage, page}) => {
+    const itemPrices: number[] = [];
+    let isSorted = true;
+
+    const sortButton = page.getByTestId("product-sort-container");
+
+    await sortButton.selectOption("Price (low to high)");
+
+    const listItems = page.locator('.inventory_item');
+    const allItems = await listItems.all();
+
+    for (const item of allItems) {
+        const itemPrice = await item.locator('.inventory_item_price').textContent();
+        const priceString = itemPrice?.replace("$", "");
+        const priceNumber = parseFloat(priceString || "");
+        itemPrices.push(priceNumber);
+    }
+    for(let i = 0; i < itemPrices.length - 1; i++){
+        if(itemPrices[i] > itemPrices[i + 1]){
             isSorted = false;
         }
     }
