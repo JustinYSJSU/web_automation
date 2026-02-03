@@ -13,7 +13,9 @@ root/
 ├── tests/                  
 │   ├── checkout.spec.ts          
 │   ├── inventory.spec.ts         
-│   └── login.spec.ts       
+│   └── login.spec.ts
+|── data/ # Holding test data for authentication
+    |──login_data.json
 ├── fixtures/                 # Test fixture for re-use
 └── README.md                 # Project documentation
 ```
