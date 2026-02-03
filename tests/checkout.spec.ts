@@ -21,3 +21,22 @@ test('checkout with item(s)', async ({cartPage, page}) =>{
 
     await expect(page).toHaveURL(/.*checkout-complete.html/);
 })
+
+test('checkout with missing field', async ({cartPage, page}) => {
+    await cartPage.checkout();
+
+    await expect(page).toHaveURL(/.*checkout-step-one.html/);
+
+    const firstNameField = page.getByTestId("firstName");
+    const lastNameField = page.getByTestId("lastName");
+    const zipCodeField = page.getByTestId("postalCode");
+    const continueButton = page.getByTestId("continue");
+
+    await firstNameField.fill("John");
+    await lastNameField.fill("Doe");
+    await continueButton.click();
+
+    await continueButton.click();
+
+    await expect(page.getByText("Error: Postal Code is required")).toBeVisible();
+})
