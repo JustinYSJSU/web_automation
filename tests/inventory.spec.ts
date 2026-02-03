@@ -95,3 +95,29 @@ test('sort items by price (low to high)', async ({inventoryPage, page}) => {
     }
     expect(isSorted).toBe(true);
 })
+
+test('sort items by price (high to low)', async ({inventoryPage, page}) => {
+    const itemPrices: number[] = [];
+    let isSorted = true;
+
+    const sortButton = page.getByTestId("product-sort-container");
+
+    await sortButton.selectOption("Price (high to low)");
+
+    const listItems = page.locator('.inventory_item');
+    const allItems = await listItems.all();
+
+    for (const item of allItems) {
+        const itemPrice = await item.locator('.inventory_item_price').textContent();
+        const priceString = itemPrice?.replace("$", "");
+        const priceNumber = parseFloat(priceString || "");
+        itemPrices.push(priceNumber);
+    }
+    for(let i = 0; i < itemPrices.length - 1; i++){
+        if(itemPrices[i] < itemPrices[i + 1]){
+            isSorted = false;
+        }
+    }
+    expect(isSorted).toBe(true);
+})
+
